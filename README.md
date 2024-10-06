@@ -1,3 +1,59 @@
+To create a collapsible content section in your documentation that expands when clicked, you can use a combination of HTML and JavaScript. Here's a simple example of how you can implement this feature in your documentation:
+
+### Example Code for Collapsible Content
+
+You can wrap the sections you want to collapse with `<details>` and `<summary>` tags. Here's how it would look for your project documentation:
+
+```html
+# Project Description
+
+## Project Title: **FastAPI and React Integration with OpenSearch**
+
+### Overview
+
+This project aims to develop a web application using **FastAPI** for the backend and **React** for the frontend, integrated with **OpenSearch** for efficient data retrieval and search capabilities. The application will provide a seamless user experience with a responsive interface while leveraging the speed and performance of FastAPI and the powerful search capabilities of OpenSearch.
+
+### Key Features
+
+- **Search Functionality**: Utilize OpenSearch to provide fast and efficient search capabilities across data sets.
+- **Responsive Design**: A modern and user-friendly interface built with React and CSS frameworks.
+
+---
+
+# Project Objectives
+
+<details>
+<summary>Click to expand objectives</summary>
+
+1. **Develop a RESTful API**:
+   - Implement a robust backend using FastAPI to handle client requests and responses efficiently.
+   - Design endpoints for user authentication, data retrieval, and manipulation.
+
+2. **Integrate OpenSearch**:
+   - Set up and configure an OpenSearch instance for storing and querying data.
+   - Implement search functionalities to enable users to find data quickly and efficiently.
+
+3. **Create a Responsive Frontend**:
+   - Develop a React-based user interface that is responsive and intuitive.
+   - Use modern UI frameworks and libraries to enhance the user experience.
+
+4. **Implement User Authentication**:
+   - Create a secure user authentication system to protect sensitive user data.
+   - Enable features such as user registration, login, and password recovery.
+
+5. **Ensure Performance and Scalability**:
+   - Optimize the application for performance, ensuring quick load times and efficient data processing.
+   - Design the architecture to be scalable, allowing for future enhancements and additional features.
+
+6. **Testing and Quality Assurance**:
+   - Conduct thorough testing of both the backend and frontend components to ensure reliability and functionality.
+   - Implement automated tests where possible to maintain code quality.
+
+7. **Deployment**:
+   - Prepare the application for deployment in a production environment, ensuring that all components work seamlessly together.
+   - Consider options for cloud hosting and database management.
+
+</details>
 
 ### Installation Instructions
 
@@ -70,12 +126,12 @@
 
    This script should take care of injecting your predefined index into the running OpenSearch instance.
 
-
-Here’s an updated installation guide that includes instructions for setting up a React frontend after installing FastAPI and OpenSearch:
-
 ---
 
-# Installation Guide for FastAPI with OpenSearch and React Frontend
+### Installation Guide for FastAPI with OpenSearch and React Frontend
+
+<details>
+<summary>Click to expand installation guide</summary>
 
 ## Prerequisites
 
@@ -154,216 +210,73 @@ npm start
 1. Open a web browser and navigate to `http://127.0.0.1:8000` for your FastAPI application.
 2. Open another tab and navigate to `http://localhost:3000` (or the specified port) for your React frontend.
 
+</details>
 
+---
 
-This installation guide provides a comprehensive overview for setting up both the FastAPI backend and the React frontend. If you have any questions or need further assistance, feel free to ask!
+# Project Documentation: Recipe Data Processing and Indexing
 
+<details>
+<summary>Click to expand project documentation</summary>
 
-# Recipe_search
- Opensearch project
-In OpenSearch, you can search the indexed fields in several ways depending on the type of field, the nature of your query, and the result you expect. Here are the most common types of search queries you can use for each field:
+## Steps Taken to Build the Project
 
-### 1. **Basic Match Search**
-   Use the `match` query to search for a term in a particular field.
+1. **Data Download**:
+   - Downloaded a JSON file containing recipe data from the specified source.
 
-   **Example**: Search for recipes that contain "onions" in the `ingredients` field.
-   ```json
-   {
-     "query": {
-       "match": {
-         "ingredients": "onions"
-       }
-     }
-   }
-   ```
+2. **Data Analysis**:
+   - Used **Pandas** in a **Jupyter Notebook** to analyze the downloaded JSON data.
+   - Extracted insights and performed exploratory data analysis (EDA) to understand the structure and contents of the data.
 
-### 2. **Term Query**
-   Use the `term` query to find documents that contain an exact match in a field. This works best for exact values like numbers or keywords, rather than analyzed text.
+3. **Data Cleaning**:
+   - Identified and cleaned null or missing data entries to ensure the dataset is complete and reliable.
+   - Analyzed the dataset for common keywords to understand the most frequent terms used in the recipes.
 
-   **Example**: Search for recipes that have exactly 403 calories.
-   ```json
-   {
-     "query": {
-       "term": {
-         "calories": 403
-       }
-     }
-   }
-   ```
+4. **Keyword Filtering**:
+   - Based on the analysis, determined which filters should be present in the application for better search functionality and user experience.
 
-### 3. **Range Query**
-   Use the `range` query to find documents with values within a certain range, useful for numerical or date fields.
+5. **Index Creation**:
+   - Created an `indexing.py` script to generate an index from the JSON file, facilitating faster data retrieval and search capabilities.
 
-   **Example**: Search for recipes with a calorie count between 300 and 500.
-   ```json
-   {
-     "query": {
-       "range": {
-         "calories": {
-           "gte": 300,
-           "lte": 500
-         }
-       }
-     }
-   }
-   ```
+6. **Data Insertion**:
+   - Developed an `inserting.py` script to insert the indexed data into the target system (e.g., OpenSearch), ensuring that the data is readily accessible for queries.
 
-   **Example**: Search for recipes added after a certain date.
-   ```json
-   {
-     "query": {
-       "range": {
-         "date": {
-           "gte": "2000-01-01"
-         }
-       }
-     }
-   }
-   ```
+## Services Module (`app/services.py`)
 
-### 4. **Multi-Match Query**
-   Use the `multi_match` query when you want to search for a term across multiple fields.
+### Overview
 
-   **Example**: Search for "onion" in both `title` and `ingredients` fields.
-   ```json
-   {
-     "query": {
-       "multi_match": {
-         "query": "onion",
-         "fields": ["title", "ingredients"]
-       }
-     }
-   }
-   ```
+The `services.py` module is responsible for handling search functionality within the application. It utilizes the OpenSearch client to execute complex search queries based on user-defined parameters. The module is equipped with logging to track incoming queries and the search process for debugging and monitoring purposes.
 
-### 5. **Wildcard Query**
-   Use the `wildcard` query when you want to perform partial or pattern matching.
+### Key Components
 
-   **Example**: Search for recipes whose title contains the word "Terrine" anywhere.
-   ```json
-   {
-     "query": {
-       "wildcard": {
-         "title": "Terrine*"
-       }
-     }
-   }
-   ```
+1. **OpenSearch Client Initialization**:
+   - The OpenSearch client is instantiated using a configuration method (`get_opensearch_client`), allowing interaction with the OpenSearch service.
 
-### 6. **Prefix Query**
-   The `prefix` query is used to match documents that have fields starting with a specific string.
+2. **Logging**:
+   - Configured logging to capture important events, including incoming queries and search execution results, which aids in debugging and performance monitoring.
 
-   **Example**: Search for recipes with titles starting with "Boudin".
-   ```json
-   {
-     "query": {
-       "prefix": {
-         "title": {
-           "value": "Boudin"
-         }
-       }
-     }
-   }
-   ```
+3. **Search Functionality**:
+   - The `search_recipes` function constructs a search query based on the input parameters and filters, enabling users to search for recipes with specific criteria.
 
-### 7. **Filter Query**
-   A `filter` allows you to include specific conditions without scoring (i.e., without relevance ranking). This is useful for fields like categories or exact values.
+### Search Function Implementation
 
-   **Example**: Filter recipes that fall under the "Pork" category.
-   ```json
-   {
-     "query": {
-       "bool": {
-         "filter": [
-           { "term": { "categories": "Pork" } }
-         ]
-       }
-     }
-   }
-   ```
+- **Parameters Handling**: 
+   - The function takes `query_params` to extract various search criteria such as keywords, ingredients, category, calorie range, protein range, sodium range, and rating.
+   
+- **Search Query Construction**:
+   - Builds a structured search query using a `bool` query with `must` and `filter` clauses.
+   - Supports multi-match queries across multiple fields (title, directions, ingredients, and description).
+   - Incorporates filters for ingredients, categories, and nutritional values (calories, protein, sodium) using range queries.
 
-### 8. **Bool Query (Combining Queries)**
-   The `bool` query allows you to combine multiple query types using `must`, `should`, and `must_not`.
-
-   **Example**: Search for recipes that have "onion" in the ingredients and a calorie count between 300 and 500.
-   ```json
-   {
-     "query": {
-       "bool": {
-         "must": [
-           { "match": { "ingredients": "onion" } },
-           { "range": { "calories": { "gte": 300, "lte": 500 } } }
-         ]
-       }
-     }
-   }
-   ```
-
-### 9. **Aggregations (Faceted Search)**
-   Aggregations allow you to group and count results by a field. This is useful when building filters for categories, ranges, etc.
-
-   **Example**: Get the count of recipes by category.
-   ```json
-   {
-     "aggs": {
-       "by_category": {
-         "terms": {
-           "field": "categories.keyword"
-         }
-       }
-     }
-   }
-   ```
-
-### 10. **Fuzzy Search**
-   Use `fuzzy` search for approximate matching, useful when you expect typos or want results for similar terms.
-
-   **Example**: Search for recipes where the title is similar to "Boudan" (this might return "Boudin").
-   ```json
-   {
-     "query": {
-       "fuzzy": {
-         "title": {
-           "value": "Boudan",
-           "fuzziness": "AUTO"
-         }
-       }
-     }
-   }
-   ```
-
-### 11. **Exists Query**
-   The `exists` query allows you to find documents where a certain field is present (i.e., it has a non-null value).
-
-   **Example**: Find all recipes that have a `description`.
-   ```json
-   {
-     "query": {
-       "exists": {
-         "field": "desc"
-       }
-     }
-   }
-   ```
-
-### Example: Postman Search Request
-To test these queries in Postman, use the following setup:
-
-1. **Method**: `POST`
-2. **URL**: `http://localhost:9200/recipe_indexing/_search`
-3. **Body**: Select `raw` and `JSON` and paste the query you want to test.
-
-For example, to search for recipes containing "onions" in the ingredients:
-
-```json
-{
-  "query": {
-    "match": {
-      "ingredients": "onions"
-    }
-  }
-}
-```
+- **Execution and Response**:
+   - Executes the constructed search query using the OpenSearch client and returns the search results.
+   - Logs the number of hits found to provide feedback on the search operation.
 
 ### Conclusion
-These are some of the common ways to search fields in OpenSearch. Depending on your use case (exact matching, partial matching, range search, etc.), you can choose the most suitable query type. You can combine queries with `bool` queries to create more complex searches.
+
+The `services.py` module enhances the application's functionality by providing a robust and efficient search capability. By leveraging OpenSearch, it enables users to find recipes based on
+
+ various criteria quickly and easily.
+
+</details>
+
