@@ -35,6 +35,13 @@ This project aims to develop a web application using **FastAPI** for the backend
 
 </details>
 
+
+
+### Installation Guide for FastAPI with OpenSearch and React Frontend
+
+<details>
+<summary>Click to expand installation guide</summary>
+
 ### Installation Instructions
 
 #### Step 1: Install OpenSearch
@@ -107,11 +114,6 @@ This project aims to develop a web application using **FastAPI** for the backend
    This script should take care of injecting your predefined index into the running OpenSearch instance.
 
 ---
-
-### Installation Guide for FastAPI with OpenSearch and React Frontend
-
-<details>
-<summary>Click to expand installation guide</summary>
 
 ## Prerequisites
 
